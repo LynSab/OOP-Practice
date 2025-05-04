@@ -9,7 +9,7 @@ class CharacterCreate():
   def choose_class(self):
     print('What character class would you like to be? \n1. Barbarian \n2. Wizard \n3. Ranger \n4. Rogue')
     character_class = input('Insert the number of your chosen class: ')
-    return character_class
+    return int(character_class)
   
   def choose_name(self):
     character_name = input('\nWhat is your characters name?\n')

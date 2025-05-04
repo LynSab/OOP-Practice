@@ -11,7 +11,7 @@ class Character(Entity):
     self.hp = 100
 
   def attack(self, target):
-    damage = self.attack - target.defence
+    damage = self.strength - target.defence
     if damage > 0:
       target.hp -= damage
     return f'{self.name} attacks {target.name} and hits for {damage} damage'
@@ -28,7 +28,7 @@ class Rogue(Character):
   
   def sneak_attack(self, target):
     if self.dexterity > target.dexterity:
-      damage = (self.attack + self.dex_attack_bonus) - target.defence
+      damage = (self.strength + self.dex_attack_bonus) - target.defence
       if damage > 0:
         target.hp -= damage
       return f'{self.name} sneak attacks {target.name} and hits for {damage} damage'
@@ -43,7 +43,7 @@ class Barbarian(Character):
     self.str_attack_bonus = 10
   
   def attack(self, target):
-    damage = (self.attack + self.str_attack_bonus) - target.defence
+    damage = (self.strength + self.str_attack_bonus) - target.defence
     if damage > 0:
       target.hp -= damage
     return f'{self.name} attacks {target.name} and hits for {damage} damage'
@@ -60,11 +60,15 @@ class Wizard(Character):
     }
   
   def spell_attack(self, target, spell):
-    damage = self.spells[spell]['str']
-    self.mana -= self.spells[spell]['cost']
-    target.hp -= damage
-    return f'{self.name} attacks {target.name} with spell {spell} and hits for {damage} damage'
-  
+    if self.mana >self.spells[spell]['cost']:
+      damage = self.spells[spell]['str']
+      self.mana -= self.spells[spell]['cost']
+      target.hp -= damage
+      return f'{self.name} attacks {target.name} with spell {spell} and hits for {damage} damage'
+    else:
+      print('You do not have enough mana, you do a regular attack instead')
+      return self.attack(target)
+
   def __str__(self):
     return super().__str__() + f'\nMana: {self.mana}'
   
@@ -76,7 +80,7 @@ class Ranger(Character):
     self.ranged_atk_bonus = 10
   
   def ranged_attack(self, target):
-    damage = (self.attack + self.ranged_atk_bonus) - target.defence
+    damage = (self.strength + self.ranged_atk_bonus) - target.defence
     if damage > 0:
       target.hp -= damage
     self.arrows -= 1
