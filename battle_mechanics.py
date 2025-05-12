@@ -26,14 +26,14 @@ class Battles():
       elif isinstance(player_char, Ranger):
         type_of_attack = int(input('How would you like to attack? \n1. Ranged attack \n2. Regular attack \n Enter the number of your chosen attack type: '))
         if type_of_attack == 1:
-                print(player_char.ranged_attack(enemy))
+          print(player_char.ranged_attack(enemy))
         else:
           print(player_char.attack(enemy))
       
       elif isinstance(player_char, Rogue):
         type_of_attack = int(input('How would you like to attack? \n1. Sneak attack \n2. Regular attack \n Enter the number of your chosen attack type: '))
         if type_of_attack == 1:
-                print(player_char.sneak_attack(enemy))
+          print(player_char.sneak_attack(enemy))
         else:
           print(player_char.attack(enemy))
       
